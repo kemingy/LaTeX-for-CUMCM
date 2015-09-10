@@ -1,0 +1,129 @@
+%======================================数模排版训练
+\documentclass{ctexart}
+%\usepackage{ctex}%和ctexart有冲突
+\usepackage{CJK}%中文支持
+\usepackage{booktabs}%三线表
+\usepackage{latexsym, bm, amsmath, amssymb}%数学公式宏包
+\usepackage{wasysym}%数学直立积分号
+\usepackage[margin=2.5cm]{geometry}%页面设置
+\usepackage{times}%Time New Roman字体
+\usepackage{titlesec}%设置章节标题格式
+\usepackage{graphicx}%图
+\usepackage{cleveref}%使引用更方便
+\usepackage{fancyhdr}%页眉页脚页码
+\usepackage{epstopdf}%eps图片插入用PDFTeXify编译
+\usepackage{appendix}%附录
+\usepackage{listings}%插入附录的文档
+\usepackage{color}%red, green, blue, yellow, cyan, magenta, black, white
+\usepackage{CJKnumb}%把阿拉伯数字转化为中文数字
+%\usepackage{setspace}%行间距
+\usepackage{afterpage}%处理浮动对象
+\usepackage{multirow}%复杂表格排版
+\usepackage{subfig}%多图
+\usepackage{tikz}%绘图
+
+%自定义命令
+\newcommand{\hei}{\CJKfamily{hei}}
+\newcommand{\song}{\CJKfamily{song}}
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}
+\newcommand{\xiaosi}{\fontsize{12pt}{\baselineskip}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}
+\newcommand{\xiaowu}{\fontsize{9pt}{\baselineskip}\selectfont}
+\newcommand{\timu}{\fontsize{16pt}{\baselineskip}\selectfont\CJKfamily{hei}}%题目格式
+\newcommand{\zhaiyao}{\fontsize{16pt}{\baselineskip}\selectfont\CJKfamily{li}}%摘要格式
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}%引用标在右上角
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\renewcommand{\thesection}{\CJKnumber{\arabic{section}}、}%一级标题前序号用中文序号
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}%二级标题
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}%三级标题
+%\renewcommand{\theparagraph}{(\arabic{paragraph})}%设置paragraph格式
+%\makeatletter
+%\def\paragraph{\@startsection{paragraph}{4}{\z@}{-.1ex plus
+%-0.1ex minus -.1ex}{0.1ex plus .1ex}{\hspace{1ex}\normalsize}}
+%\makeatother
+
+\makeatletter
+\renewcommand\paragraph{%
+   \refstepcounter{paragraph}%   Manually stepping paragraph counter without consulting secnumdepth
+   \@startsection{paragraph}{4}{\z@}%
+     {1ex \@plus1ex \@minus.2ex}%
+     {-1em}%
+     {\normalfont\large\theparagraph\space}} % Formatting the paragraph
+\makeatother
+
+%需要修改的命令
+\renewcommand{\abstractname}{\zhaiyao 摘\qquad 要}
+\renewcommand\tablename{表}
+\renewcommand\figurename{图}
+\renewcommand{\refname}{参考文献}
+\crefname{equation}{式}{式}
+\crefname{table}{表}{表}
+\crefname{figure}{图}{图}
+
+%=================公式按章节编号======================
+\makeatletter % `@' now normal "letter"
+\@addtoreset{equation}{section}
+\makeatother  % `@' is restored as "non-letter"
+\renewcommand\theequation{\arabic{section}.{\arabic{equation}}}%删去\oldstylenums可以使字体变正常
+
+%===================页码设置======================
+\pagestyle{plain}%不设置页眉，页脚居中显示页码
+%\cfoot{\thepage}
+
+%===================标题设置======================
+\titleformat{\section}{\CJKfamily{hei}\sihao\centering}{\thesection}{1em}{}%设置章节标题字体为黑体
+\titlespacing{\section}{0pt}{2.5\wordsep}{2\wordsep}%设置章节标题间距
+\titleformat{\subsection}{\CJKfamily{hei}\xiaosi}{\thesubsection}{0.7em}{}%设置二级标题
+\titlespacing{\subsection}{0pt}{1.5\wordsep}{1\wordsep}%设置章节标题间距
+\titleformat{\subsubsection}{\CJKfamily{song}\xiaosi}{\thesubsubsection}{0.4em}{}%设置三级标题
+\titlespacing{\subsubsection}{0pt}{0.5\wordsep}{0.5\wordsep}%设置章节标题间距
+%\titleformat{\paragraph}{\CJKfamily{song}\xiaosi}{\theparagraph}{1em}{}%设置paragraph格式
+%\titlespacing{\paragraph}{0pt}{0.3\wordsep}{0.3\wordsep}%设置章节标题间距
+
+\begin{document}
+\begin{CJK*}{GBK}{song}
+
+%插入控制页
+\input{ControlPage.tex}
+
+\pagenumbering{arabic}%将页码置为零
+
+%===================================题目
+%\title{2015数学建模 \LaTeX 中文排版测试}
+%\date{}
+%\maketitle
+
+\begin{center}
+  \timu 2015数学建模 \LaTeX 中文排版测试
+\end{center}
+\vspace{1em}%调整与前文的距离
+
+%===================================摘要
+\input{Abstract.tex}
+
+\xiaosi %正文字体
+\setlength{\parskip}{0.5pt}%正文段落间距
+\setlength{\baselineskip}{16pt}%行间距
+\CJKindent%首行缩进2个汉字
+
+\newpage
+
+%===================================模型准备
+\input{BeforeModel.tex}
+
+%================================模型的建立与求解
+\input{Modeling.tex}
+
+%===================================参考文献
+\input{Reference.tex}
+
+%====================================附录
+\newpage
+\input{Appendices.tex}
+
+\par
+\end{CJK*}
+\end{document}
+
