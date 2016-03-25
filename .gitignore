@@ -1,0 +1,5 @@
+*.bak
+CUMCM_Template.log
+*.gz
+CUMCM_Template.aux
+*.log
